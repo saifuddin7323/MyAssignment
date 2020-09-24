@@ -2,6 +2,8 @@ import React from 'react';
 import {SafeAreaView, View, StyleSheet, Text, Image} from 'react-native';
 import {Button} from 'react-native-elements';
 import SwipeButton from 'rn-swipe-button';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {RootStackParamList} from '@app/myassignment/src/navigation/NavigationContainer';
 
 const styles = StyleSheet.create({
   buttonViewStyle: {
@@ -18,8 +20,14 @@ const styles = StyleSheet.create({
   },
 });
 
-export const HomeScreen = ({navigation}) => {
-  const updateSwipeStatusMessage = () => navigation.navigate('Login');
+type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Home'>;
+
+type HomeScreenProps = {
+  navigation: HomeScreenNavigationProp;
+};
+
+export const HomeScreen: React.FC<HomeScreenProps> = (props) => {
+  const updateSwipeStatusMessage = () => props.navigation.navigate('Login');
   const leftThumbIcon = () => {
     return (
       <Image
@@ -39,7 +47,7 @@ export const HomeScreen = ({navigation}) => {
             title="Press me"
             type={'clear'}
             buttonStyle={{height: 50}}
-            onPress={() => navigation.navigate('Login')}
+            onPress={() => props.navigation.navigate('Login')}
             containerStyle={{marginBottom: 15, marginHorizontal: 10}}
           />
           <Button
@@ -51,7 +59,7 @@ export const HomeScreen = ({navigation}) => {
               backgroundColor: '#404040',
             }}
             containerStyle={{marginBottom: 15}}
-            onPress={() => navigation.navigate('Login')}
+            onPress={() => props.navigation.navigate('Login')}
           />
           <Button
             title="Press me"
@@ -63,7 +71,7 @@ export const HomeScreen = ({navigation}) => {
               borderRadius: 8,
             }}
             containerStyle={{marginBottom: 15}}
-            onPress={() => navigation.navigate('Login')}
+            onPress={() => props.navigation.navigate('Login')}
           />
           <SwipeButton
             enableRightToLeftSwipe={false}

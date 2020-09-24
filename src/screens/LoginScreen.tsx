@@ -1,28 +1,28 @@
 import React, {useState} from 'react';
-import {SafeAreaView, View, StyleSheet, Platform, Alert} from 'react-native';
+import {SafeAreaView, View, Alert} from 'react-native';
 import {AppHeader} from '../components/Header';
 import {Input, Button} from 'react-native-elements';
 import {useDispatch} from 'react-redux';
 import {updateUserName} from '../redux/actions/UserAction';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {RootStackParamList} from '../navigation/NavigationContainer';
 
-const styles = StyleSheet.create({
-  textInputStyle: {
-    borderColor: '#00b38e',
-    borderBottomWidth: 2,
-    paddingBottom: 3,
-    paddingLeft: Platform.OS === 'ios' ? 0 : -3,
-    paddingTop: 0,
-    color: '#01475b',
-  },
-});
+type LoginScreenNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  'Login'
+>;
 
-export const LoginScreen = ({navigation}) => {
+type LoginScreenProps = {
+  navigation: LoginScreenNavigationProp;
+};
+
+export const LoginScreen: React.FC<LoginScreenProps> = (props) => {
   const [userName, setUserName] = useState('');
   const dispatch = useDispatch();
-  const updateName = (value) => {
+  const updateName = (value: string) => {
     if (userName) {
       dispatch(updateUserName(value));
-      navigation.navigate('Welcome');
+      props.navigation.navigate('Welcome');
       setUserName('');
     } else {
       Alert.alert('Error', 'Please enter user name');

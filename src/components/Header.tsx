@@ -1,8 +1,15 @@
 import React from 'react';
 import {Image, TouchableOpacity} from 'react-native';
-import {Header} from 'react-native-elements';
+import {Header, HeaderProps} from 'react-native-elements';
 
-export const AppHeader = (props) => {
+interface AppHeaderProps extends HeaderProps {
+  onLeftIconPress?: () => void;
+  leftIcon?: boolean;
+  centerTitle?: string;
+  rightTitle?: string;
+}
+
+export const AppHeader: React.FC<AppHeaderProps> = (props) => {
   const leftComponent = () => {
     return (
       <TouchableOpacity activeOpacity={1} onPress={props.onLeftIconPress}>

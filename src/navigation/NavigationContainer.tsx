@@ -6,7 +6,14 @@ import {SplashScreen} from '../screens/SplashScreen';
 import {LoginScreen} from '../screens/LoginScreen';
 import {WelcomeScreen} from '../screens/WelcomeScreen';
 
-const Stack = createStackNavigator();
+export type RootStackParamList = {
+  Home: undefined;
+  Splash: undefined;
+  Welcome: undefined;
+  Login: undefined;
+};
+
+const Stack = createStackNavigator<RootStackParamList>();
 
 export const NavigationContainer = () => {
   return (

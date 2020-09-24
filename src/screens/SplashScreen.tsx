@@ -8,6 +8,17 @@ import {
   Platform,
 } from 'react-native';
 import {AppLogo} from '../components/AppLogo';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {RootStackParamList} from '../navigation/NavigationContainer';
+
+type SplashScreenNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  'Login'
+>;
+
+type SplashScreenProps = {
+  navigation: SplashScreenNavigationProp;
+};
 
 const NativeComm = NativeModules.ReactNativeBridge;
 
@@ -19,17 +30,17 @@ const styles = StyleSheet.create({
   },
 });
 
-export const SplashScreen = ({navigation}) => {
+export const SplashScreen: React.FC<SplashScreenProps> = (props) => {
   const [isSimulator, setIsSimulator] = useState(false);
   const appRunningText = `App running in ${
     Platform.OS === 'ios' ? 'Simulator' : 'Emulator'
   }`;
   useEffect(() => {
-    NativeComm.isSimulatorEmulator().then((isSimulatorEmulator) => {
+    NativeComm.isSimulatorEmulator().then((isSimulatorEmulator: boolean) => {
       setIsSimulator(isSimulatorEmulator);
     });
     setTimeout(() => {
-      navigation.navigate('Login');
+      props.navigation.navigate('Login');
     }, 2000);
   }, []);
 
